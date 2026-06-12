@@ -1,0 +1,1435 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy 20th Birthday, Rawan 🌟</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <style>
+      /* ─── CSS RESET & BASE ─────────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --midnight: #0a0820;
+        --deep-navy: #100e2e;
+        --cosmic-blue: #1a1540;
+        --soft-purple: #6b4fa0;
+        --lavender: #b8a4e8;
+        --blush: #f4a7c3;
+        --rose: #f06292;
+        --gold: #ffd700;
+        --star-glow: #fff4e6;
+        --text-light: #e8dff5;
+        --text-muted: #9e8cb8;
+        --font-display: "Dancing Script", cursive;
+        --font-body: "Quicksand", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background: var(--midnight);
+        color: var(--text-light);
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      /* ─── STARFIELD BACKGROUND ─────────────────────────────── */
+      #starfield {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .bg-star {
+        position: absolute;
+        border-radius: 50%;
+        background: white;
+        animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s);
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.15;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.9;
+          transform: scale(1.4);
+        }
+      }
+
+      /* ─── NEBULA BLOBS ─────────────────────────────────────── */
+      .nebula {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(80px);
+        pointer-events: none;
+        z-index: 0;
+        animation: nebulaDrift 18s ease-in-out infinite alternate;
+      }
+      .nebula-1 {
+        width: 600px;
+        height: 400px;
+        background: rgba(107, 79, 160, 0.18);
+        top: -100px;
+        left: -100px;
+      }
+      .nebula-2 {
+        width: 500px;
+        height: 500px;
+        background: rgba(240, 98, 146, 0.12);
+        top: 30%;
+        right: -150px;
+        animation-delay: -6s;
+      }
+      .nebula-3 {
+        width: 400px;
+        height: 300px;
+        background: rgba(184, 164, 232, 0.1);
+        bottom: 0;
+        left: 20%;
+        animation-delay: -12s;
+      }
+
+      @keyframes nebulaDrift {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(30px, 20px) scale(1.05);
+        }
+      }
+
+      /* ─── LAYOUT WRAPPERS ──────────────────────────────────── */
+      .section-wrap {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* ─── HERO ─────────────────────────────────────────────── */
+      #hero {
+        position: relative;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 60px 24px;
+      }
+
+      .hero-eyebrow {
+        font-family: var(--font-body);
+        font-weight: 500;
+        font-size: clamp(0.75rem, 2vw, 0.95rem);
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--lavender);
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeSlideUp 0.9s ease forwards 0.3s;
+      }
+
+      .hero-title {
+        font-family: var(--font-display);
+        font-size: clamp(2.4rem, 7vw, 5.5rem);
+        font-weight: 700;
+        line-height: 1.12;
+        background: linear-gradient(
+          135deg,
+          #fff 0%,
+          var(--lavender) 40%,
+          var(--blush) 75%,
+          var(--rose) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: none;
+        filter: drop-shadow(0 0 28px rgba(240, 98, 146, 0.35));
+        opacity: 0;
+        animation: fadeSlideUp 1s ease forwards 0.6s;
+      }
+
+      .hero-sub {
+        margin-top: 22px;
+        font-size: clamp(1rem, 3vw, 1.35rem);
+        font-weight: 500;
+        color: var(--text-muted);
+        max-width: 520px;
+        line-height: 1.6;
+        opacity: 0;
+        animation: fadeSlideUp 1s ease forwards 0.9s;
+      }
+
+      .hero-sub em {
+        color: var(--blush);
+        font-style: normal;
+        font-weight: 600;
+      }
+
+      .scroll-hint {
+        position: absolute;
+        bottom: 36px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        opacity: 0;
+        animation: fadeSlideUp 1s ease forwards 1.6s;
+        color: var(--text-muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .scroll-arrow {
+        width: 20px;
+        height: 20px;
+        border-right: 2px solid var(--lavender);
+        border-bottom: 2px solid var(--lavender);
+        transform: rotate(45deg);
+        animation: bounce 1.5s ease-in-out infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: rotate(45deg) translateY(0);
+        }
+        50% {
+          transform: rotate(45deg) translateY(6px);
+        }
+      }
+
+      .hero-sparkles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .sparkle {
+        position: absolute;
+        font-size: 1.4rem;
+        animation: float var(--fdur, 6s) ease-in-out infinite var(--fdelay, 0s);
+        opacity: 0.7;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0.5;
+        }
+        33% {
+          transform: translateY(-18px) rotate(10deg);
+          opacity: 0.9;
+        }
+        66% {
+          transform: translateY(-8px) rotate(-8deg);
+          opacity: 0.7;
+        }
+      }
+
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ─── SECTION DIVIDER ──────────────────────────────────── */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 0 auto 56px;
+        max-width: 320px;
+      }
+      .divider-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          var(--soft-purple),
+          transparent
+        );
+      }
+      .divider-icon {
+        color: var(--blush);
+        font-size: 1.1rem;
+      }
+
+      /* ─── STARS SECTION ────────────────────────────────────── */
+      #stars-section {
+        position: relative;
+        z-index: 1;
+        padding: 80px 0 100px;
+      }
+
+      .section-title {
+        text-align: center;
+        font-family: var(--font-display);
+        font-size: clamp(1.9rem, 5vw, 3.2rem);
+        font-weight: 700;
+        color: var(--lavender);
+        margin-bottom: 14px;
+        filter: drop-shadow(0 0 14px rgba(184, 164, 232, 0.5));
+      }
+
+      .section-subtitle {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+        max-width: 450px;
+        margin: 0 auto 60px;
+        line-height: 1.65;
+      }
+
+      /* ─── STAR GRID ────────────────────────────────────────── */
+      .stars-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 28px 20px;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 12px;
+      }
+
+      .star-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        padding: 18px 10px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(184, 164, 232, 0.12);
+        transition:
+          background 0.3s,
+          border-color 0.3s,
+          transform 0.25s;
+        position: relative;
+        overflow: hidden;
+        user-select: none;
+      }
+
+      .star-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        background: radial-gradient(
+          circle at 50% 40%,
+          rgba(240, 98, 146, 0.1),
+          transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .star-card:hover {
+        background: rgba(184, 164, 232, 0.07);
+        border-color: rgba(184, 164, 232, 0.35);
+        transform: translateY(-5px);
+      }
+
+      .star-card:hover::before {
+        opacity: 1;
+      }
+
+      .star-icon {
+        font-size: 2.4rem;
+        line-height: 1;
+        animation: starPulse var(--sp-dur, 2.5s) ease-in-out infinite
+          var(--sp-delay, 0s);
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+        transition: transform 0.3s;
+      }
+
+      .star-card:hover .star-icon {
+        transform: scale(1.25) rotate(15deg);
+      }
+
+      @keyframes starPulse {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+        }
+        50% {
+          filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.95))
+            drop-shadow(0 0 32px rgba(240, 98, 146, 0.4));
+        }
+      }
+
+      .star-label {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--lavender);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        opacity: 0.75;
+      }
+
+      /* ─── MODAL ─────────────────────────────────────────────── */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(5, 3, 20, 0.82);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .modal-box {
+        background: linear-gradient(145deg, #160e34, #1e1448);
+        border: 1px solid rgba(184, 164, 232, 0.25);
+        border-radius: 28px;
+        padding: clamp(32px, 6vw, 52px);
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        box-shadow:
+          0 30px 80px rgba(0, 0, 0, 0.6),
+          0 0 60px rgba(107, 79, 160, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        transform: scale(0.88) translateY(20px);
+        transition:
+          transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+          opacity 0.3s ease;
+        opacity: 0;
+      }
+
+      .modal-overlay.active .modal-box {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+
+      .modal-star-num {
+        display: inline-block;
+        font-family: var(--font-body);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--rose);
+        background: rgba(240, 98, 146, 0.12);
+        border: 1px solid rgba(240, 98, 146, 0.25);
+        padding: 5px 14px;
+        border-radius: 99px;
+        margin-bottom: 22px;
+      }
+
+      .modal-star-emoji {
+        display: block;
+        font-size: 3.2rem;
+        margin-bottom: 18px;
+        animation: starPulse 2s ease-in-out infinite;
+      }
+
+      .modal-message {
+        font-family: var(--font-display);
+        font-size: clamp(1.25rem, 3.5vw, 1.7rem);
+        font-weight: 600;
+        color: var(--star-glow);
+        line-height: 1.5;
+        letter-spacing: 0.01em;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 16px;
+        right: 18px;
+        background: rgba(184, 164, 232, 0.1);
+        border: 1px solid rgba(184, 164, 232, 0.2);
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--lavender);
+        font-size: 1rem;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          transform 0.2s;
+      }
+
+      .modal-close:hover {
+        background: rgba(240, 98, 146, 0.2);
+        color: var(--blush);
+        transform: rotate(90deg);
+      }
+
+      .modal-confetti-hint {
+        margin-top: 20px;
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        font-style: italic;
+      }
+
+      /* ─── FINALE SECTION ────────────────────────────────────── */
+      #finale {
+        position: relative;
+        z-index: 1;
+        padding: 80px 0 120px;
+        text-align: center;
+      }
+
+      .wish-btn-wrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0;
+      }
+
+      .wish-btn {
+        font-family: var(--font-display);
+        font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+        font-weight: 700;
+        color: var(--midnight);
+        background: linear-gradient(
+          135deg,
+          var(--blush),
+          var(--rose) 40%,
+          var(--lavender)
+        );
+        background-size: 200% auto;
+        border: none;
+        padding: 20px 48px;
+        border-radius: 99px;
+        cursor: pointer;
+        position: relative;
+        box-shadow:
+          0 0 30px rgba(240, 98, 146, 0.45),
+          0 8px 30px rgba(0, 0, 0, 0.3);
+        transition:
+          background-position 0.5s ease,
+          transform 0.25s,
+          box-shadow 0.3s;
+        animation: btnGlow 3s ease-in-out infinite;
+        letter-spacing: 0.03em;
+      }
+
+      .wish-btn:hover {
+        background-position: right center;
+        transform: scale(1.05) translateY(-3px);
+        box-shadow:
+          0 0 55px rgba(240, 98, 146, 0.7),
+          0 12px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      .wish-btn:active {
+        transform: scale(0.98);
+      }
+
+      @keyframes btnGlow {
+        0%,
+        100% {
+          box-shadow:
+            0 0 30px rgba(240, 98, 146, 0.45),
+            0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+        50% {
+          box-shadow:
+            0 0 60px rgba(240, 98, 146, 0.7),
+            0 0 20px rgba(184, 164, 232, 0.5),
+            0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      /* ─── CAKE ─────────────────────────────────────────────── */
+      #cake-wrap {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 60px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.8s ease 0.3s,
+          transform 0.8s ease 0.3s;
+      }
+
+      #cake-wrap.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .cake-container {
+        position: relative;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 32px;
+      }
+
+      .candles {
+        display: flex;
+        gap: 14px;
+        align-items: flex-end;
+        margin-bottom: 4px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .candle {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+
+      .flame {
+        width: 10px;
+        height: 16px;
+        background: radial-gradient(
+          ellipse at 50% 90%,
+          #fff59d,
+          #ffb300 40%,
+          #ff6f00 75%,
+          transparent
+        );
+        border-radius: 50% 50% 30% 30%;
+        animation: flicker 0.8s ease-in-out infinite alternate;
+        position: relative;
+        filter: drop-shadow(0 0 6px #ffb300);
+      }
+
+      @keyframes flicker {
+        from {
+          transform: scaleX(1) scaleY(1) rotate(-3deg);
+          opacity: 0.9;
+        }
+        to {
+          transform: scaleX(0.85) scaleY(1.1) rotate(3deg);
+          opacity: 1;
+        }
+      }
+
+      .candle-body {
+        width: 10px;
+        height: 38px;
+        border-radius: 4px 4px 2px 2px;
+        background: linear-gradient(to right, #e8a0bf, #f4c6d7, #d8a0c8);
+      }
+
+      .cake-tier {
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cake-tier::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 12px 12px 0 0;
+      }
+
+      .tier-top {
+        width: 140px;
+        height: 52px;
+        background: linear-gradient(135deg, #c084d4, #a855c8);
+        border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .tier-mid {
+        width: 180px;
+        height: 60px;
+        background: linear-gradient(135deg, #f472b6, #ec4899);
+        border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+        margin-top: -2px;
+      }
+
+      .tier-bot {
+        width: 220px;
+        height: 68px;
+        background: linear-gradient(135deg, #818cf8, #6366f1);
+        margin-top: -2px;
+      }
+
+      .cake-deco {
+        position: absolute;
+        font-size: 1.3rem;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .cake-plate {
+        width: 250px;
+        height: 18px;
+        background: linear-gradient(135deg, #e2d4f0, #c8b8e8);
+        border-radius: 50%;
+        margin-top: -4px;
+        box-shadow: 0 4px 14px rgba(107, 79, 160, 0.3);
+      }
+
+      .cake-label {
+        font-family: var(--font-display);
+        font-size: clamp(1.4rem, 4vw, 2rem);
+        color: var(--lavender);
+        margin-bottom: 8px;
+        filter: drop-shadow(0 0 10px rgba(184, 164, 232, 0.5));
+      }
+
+      .age-badge {
+        font-family: var(--font-display);
+        font-size: 4rem;
+        font-weight: 700;
+        line-height: 1;
+        background: linear-gradient(135deg, var(--gold), var(--blush));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+        margin: 16px 0;
+      }
+
+      /* ─── LETTER ─────────────────────────────────────────────── */
+      #birthday-letter {
+        display: none;
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 1s ease 0.8s,
+          transform 1s ease 0.8s;
+        max-width: 680px;
+        margin: 60px auto 0;
+        background: linear-gradient(
+          145deg,
+          rgba(22, 14, 52, 0.9),
+          rgba(30, 20, 72, 0.9)
+        );
+        border: 1px solid rgba(184, 164, 232, 0.2);
+        border-radius: 28px;
+        padding: clamp(32px, 6vw, 56px);
+        text-align: left;
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.5),
+          0 0 40px rgba(107, 79, 160, 0.15);
+        position: relative;
+        overflow: hidden;
+      }
+
+      #birthday-letter::before {
+        content: "✦";
+        position: absolute;
+        top: 24px;
+        right: 30px;
+        font-size: 1.4rem;
+        color: var(--blush);
+        opacity: 0.4;
+      }
+
+      #birthday-letter.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .letter-header {
+        font-family: var(--font-display);
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
+        color: var(--blush);
+        margin-bottom: 28px;
+        text-align: center;
+        filter: drop-shadow(0 0 12px rgba(240, 98, 146, 0.4));
+      }
+
+      .letter-body p {
+        font-size: clamp(0.95rem, 2.2vw, 1.08rem);
+        line-height: 1.85;
+        color: var(--text-light);
+        margin-bottom: 18px;
+        font-weight: 400;
+      }
+
+      .letter-body p em {
+        color: var(--lavender);
+        font-style: normal;
+        font-weight: 600;
+      }
+
+      .letter-body p strong {
+        color: var(--blush);
+        font-weight: 600;
+      }
+
+      .letter-sig {
+        margin-top: 36px;
+        text-align: right;
+        font-family: var(--font-display);
+        font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+        color: var(--lavender);
+        line-height: 1.6;
+        filter: drop-shadow(0 0 10px rgba(184, 164, 232, 0.35));
+      }
+
+      .letter-divider {
+        width: 80px;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          var(--soft-purple),
+          transparent
+        );
+        margin: 0 auto 28px;
+      }
+
+      /* ─── FOOTER ─────────────────────────────────────────────── */
+      footer {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 32px 24px 48px;
+        color: var(--text-muted);
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+      }
+
+      /* ─── RESPONSIVE ─────────────────────────────────────────── */
+      @media (max-width: 600px) {
+        .stars-grid {
+          grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+          gap: 18px 14px;
+        }
+        .star-card {
+          padding: 14px 8px;
+        }
+        .tier-top {
+          width: 110px;
+        }
+        .tier-mid {
+          width: 148px;
+        }
+        .tier-bot {
+          width: 180px;
+        }
+        .cake-plate {
+          width: 200px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="starfield"></div>
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+
+    <section id="hero">
+      <div class="hero-sparkles" id="heroSparkles"></div>
+      <p class="hero-eyebrow">✦ A universe made just for you ✦</p>
+      <h1 class="hero-title">Welcome to the<br />Rawan Universe</h1>
+      <p class="hero-sub">
+        Happy <em>20th Birthday</em> to the best<br />sister-figure I ever could
+        have chosen. 🌙
+      </p>
+      <div class="scroll-hint">
+        <span>Explore your stars</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <section id="stars-section">
+      <div class="section-wrap">
+        <h2 class="section-title">The 20 Stars of Rawan's Galaxy</h2>
+        <p class="section-subtitle">
+          Every star holds a little truth about you. Tap each one to discover it
+          — if you dare. ✨
+        </p>
+
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-icon">✦</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <div class="stars-grid" id="starsGrid"></div>
+      </div>
+    </section>
+
+    <section id="finale">
+      <div class="section-wrap">
+        <h2 class="section-title">One last thing...</h2>
+        <p class="section-subtitle">
+          You've opened all your stars. Now it's time to make a wish. 🌠
+        </p>
+
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-icon">✦</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <div class="wish-btn-wrap">
+          <button class="wish-btn" id="wishBtn" onclick="triggerFinale()">
+            🕯️ Make a Wish, Rawan 🕯️
+          </button>
+        </div>
+
+        <div id="cake-wrap">
+          <p class="cake-label">Happy Birthday, love ✨</p>
+          <div class="age-badge">20</div>
+          <div class="cake-container">
+            <div class="candles">
+              <div class="candle">
+                <div class="flame"></div>
+                <div
+                  class="candle-body"
+                  style="
+                    background: linear-gradient(to right, #fca5a5, #fcd5ce);
+                  "
+                ></div>
+              </div>
+              <div class="candle">
+                <div class="flame" style="animation-delay: 0.2s"></div>
+                <div
+                  class="candle-body"
+                  style="
+                    background: linear-gradient(to right, #c4b5fd, #e0d7ff);
+                  "
+                ></div>
+              </div>
+              <div class="candle">
+                <div class="flame" style="animation-delay: 0.4s"></div>
+                <div
+                  class="candle-body"
+                  style="
+                    background: linear-gradient(to right, #fde68a, #fef3c7);
+                  "
+                ></div>
+              </div>
+              <div class="candle">
+                <div class="flame" style="animation-delay: 0.15s"></div>
+                <div class="candle-body"></div>
+              </div>
+              <div class="candle">
+                <div class="flame" style="animation-delay: 0.35s"></div>
+                <div
+                  class="candle-body"
+                  style="
+                    background: linear-gradient(to right, #6ee7b7, #d1fae5);
+                  "
+                ></div>
+              </div>
+            </div>
+            <div class="cake-tier tier-top">
+              <span
+                class="cake-deco"
+                style="left: 14px; top: 8px; font-size: 1rem; --fdur: 4s"
+                >🌸</span
+              >
+              <span
+                class="cake-deco"
+                style="
+                  right: 14px;
+                  top: 8px;
+                  font-size: 1rem;
+                  --fdur: 3.5s;
+                  animation-delay: 0.5s;
+                "
+                >🌸</span
+              >
+            </div>
+            <div class="cake-tier tier-mid">
+              <span
+                class="cake-deco"
+                style="left: 20px; top: 10px; font-size: 1.1rem; --fdur: 5s"
+                >⭐</span
+              >
+              <span
+                class="cake-deco"
+                style="
+                  right: 20px;
+                  bottom: 8px;
+                  font-size: 0.9rem;
+                  --fdur: 3.8s;
+                  animation-delay: 0.8s;
+                "
+                >✨</span
+              >
+            </div>
+            <div class="cake-tier tier-bot">
+              <span
+                style="
+                  font-family: var(--font-display);
+                  font-size: 1.3rem;
+                  color: rgba(255, 255, 255, 0.85);
+                  letter-spacing: 0.04em;
+                  font-weight: 600;
+                "
+                >Rawan 🎂</span
+              >
+            </div>
+            <div class="cake-plate"></div>
+          </div>
+        </div>
+
+        <div id="birthday-letter">
+          <h3 class="letter-header">A Letter to You, on Your Twentieth</h3>
+          <div class="letter-divider"></div>
+          <div class="letter-body">
+            <p>My dearest <em>Rawan</em>,</p>
+            <p>
+              Twenty. <strong>T-W-E-N-T-Y.</strong> Can you believe it? I still
+              remember you like it was yesterday — doing the most, being extra
+              dramatic about the smallest things (lovingly, of course), and
+              somehow still managing to be the most wonderful human in every
+              room you walked into.
+            </p>
+            <p>
+              You didn't just grow up. You <em>bloomed</em>. And watching you
+              step into your twenties feels like watching the universe finally
+              make good on a very old, very beautiful promise.
+            </p>
+            <p>
+              You are going to do <strong>extraordinary things</strong> this
+              decade. Not because life will be easy — it won't always be — but
+              because you carry something rare inside you: a softness that
+              doesn't break, and a fire that doesn't burn out. That combination?
+              It's unstoppable.
+            </p>
+            <p>
+              Your twenties are for messing up gloriously and learning loudly.
+              They're for choosing yourself first, finding your people, and
+              building a life that looks like <em>you</em> — not anyone else's
+              version of you. I hope you fill every single year with things that
+              make your eyes light up.
+            </p>
+            <p>
+              And on the days it gets hard — because it will — I hope you
+              remember that you are not alone. You have someone in your corner
+              who chose you, the way sisters choose each other: completely,
+              stubbornly, and forever.
+              <strong>That's me. Hi. I'm not going anywhere.</strong>
+            </p>
+            <p>
+              So here's to twenty. Here's to you. Here's to the whole wild,
+              starlit galaxy that's waiting for you. Go light it up,
+              <em>habibi</em>.
+            </p>
+            <p>With every star in every sky,</p>
+          </div>
+          <div class="letter-sig">
+            Your chosen sibling 🌙<br />
+            <span
+              style="
+                font-size: 0.85rem;
+                color: var(--text-muted);
+                font-family: var(--font-body);
+                font-style: italic;
+              "
+              >forever & always</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Made with 💜 and a whole lot of love · Happy 20th, Rawan ✦</p>
+    </footer>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+      <div class="modal-box" id="modalBox">
+        <button class="modal-close" onclick="closeModal()" aria-label="Close">
+          ✕
+        </button>
+        <span class="modal-star-num" id="modalNum"></span>
+        <span class="modal-star-emoji" id="modalEmoji"></span>
+        <p class="modal-message" id="modalMessage"></p>
+        <p class="modal-confetti-hint" id="modalHint"></p>
+      </div>
+    </div>
+
+    <script>
+      /* ─── STAR DATA (10 English, 10 Arabic) ─────────────────── */
+      const stars = [
+        {
+          emoji: "⭐",
+          label: "Star 1",
+          message:
+            "You are the sister I got to choose — and choosing you is the best decision I ever made.",
+          hint: "",
+        },
+        {
+          emoji: "🌟",
+          label: "Star 2",
+          message:
+            "كل سنة وانتي طيبة يا أحلى أخت في الدنيا، يارب تحققي كل اللي بتتمنيه.",
+          hint: "",
+        },
+        {
+          emoji: "💫",
+          label: "Star 3",
+          message:
+            "Welcome to your 20s! You're officially old now. Still my favorite headache, though.",
+          hint: "",
+        },
+        {
+          emoji: "✨",
+          label: "Star 4",
+          message:
+            "عشرين سنة يعني كبرنا وبقينا عاقلين.. أو ده اللي بنحاول نقنع بيه الناس يعني!",
+          hint: "",
+        },
+        {
+          emoji: "🌠",
+          label: "Star 5",
+          message:
+            "Every time life tried to knock you down, you got back up. I'm so proud of the person you're becoming.",
+          hint: "",
+        },
+        {
+          emoji: "⭐",
+          label: "Star 6",
+          message:
+            "بجد مفيش حد أطيب ولا أجدع منك، دايماً بتسندي اللي حواليكي ومبتبخليش على حد بضحكتك.",
+          hint: "",
+        },
+        {
+          emoji: "🌟",
+          label: "Star 7",
+          message:
+            "You have this glow that no one can dim. Keep shining and never let anyone change you.",
+          hint: "",
+        },
+        {
+          emoji: "💫",
+          label: "Star 8",
+          message:
+            "مهما الأيام لفت، هتفضلي دايماً روان الضحكة الحلوة اللي بتنور أي مكان تدخله.",
+          hint: "",
+        },
+        {
+          emoji: "✨",
+          label: "Star 9",
+          message:
+            "You feel things deeply and care without limits. Never think of that as a weakness; it's your superpower.",
+          hint: "",
+        },
+        {
+          emoji: "🌠",
+          label: "Star 10",
+          message:
+            "فخور جداً بكل خطوة بتعمليها، وعارف ومتأكد إن الجاي بتاعك أحلى بكتير من اللي فات.",
+          hint: "",
+        },
+        {
+          emoji: "⭐",
+          label: "Star 11",
+          message:
+            "Here is to more laughs, more inside jokes, and more unforgettable memories together.",
+          hint: "",
+        },
+        {
+          emoji: "🌟",
+          label: "Star 12",
+          message:
+            "كل سنة وانتي مصدر طاقة إيجابية لينا كلنا، ربنا يحميكي وتفضلي دايماً قوية ومبسوطة.",
+          hint: "",
+        },
+        {
+          emoji: "💫",
+          label: "Star 13",
+          message:
+            "Never forget how much you matter to the people around you. You are truly one of a kind.",
+          hint: "",
+        },
+        {
+          emoji: "✨",
+          label: "Star 14",
+          message:
+            "وجودك بيفرق جداً، انتي مش مجرد صاحبة، انتي أخت بجد بتسند وقت الجد.",
+          hint: "",
+        },
+        {
+          emoji: "🌠",
+          label: "Star 15",
+          message:
+            "May your 20s be filled with endless adventures, great moments, and lots of success.",
+          hint: "",
+        },
+        {
+          emoji: "⭐",
+          label: "Star 16",
+          message:
+            "مهما كبرتي هتفضلي في نظري الطفلة اللي محتاجة دايماً تاخد بالها من نفسها.",
+          hint: "",
+        },
+        {
+          emoji: "🌟",
+          label: "Star 17",
+          message:
+            "Keep dreaming big, Rawan. The universe is yours to conquer, so go out there and show them.",
+          hint: "",
+        },
+        {
+          emoji: "💫",
+          label: "Star 18",
+          message:
+            "يارب السنة دي تكون مليانة نجاح وراحة بال، وتحققي كل خطة راسماها لنفسك.",
+          hint: "",
+        },
+        {
+          emoji: "✨",
+          label: "Star 19",
+          message:
+            "Happy birthday to my absolute favorite non-biological sister. Have the best day ever!",
+          hint: "",
+        },
+        {
+          emoji: "🌠",
+          label: "Star 20",
+          message:
+            "يلا بقى عشان نعمل عظمة في العشرينات، أنا دايماً في ضهرك يا أحلى روان.",
+          hint: "",
+        },
+      ];
+
+      /* ─── GENERATE STARFIELD BACKGROUND ──────────────────────── */
+      (function generateBgStars() {
+        const field = document.getElementById("starfield");
+        for (let i = 0; i < 160; i++) {
+          const s = document.createElement("div");
+          s.className = "bg-star";
+          const size = Math.random() * 2.5 + 0.8;
+          s.style.cssText = `
+        width:${size}px; height:${size}px;
+        top:${Math.random() * 100}%; left:${Math.random() * 100}%;
+        --dur:${(Math.random() * 3 + 2).toFixed(1)}s;
+        --delay:-${(Math.random() * 4).toFixed(1)}s;
+      `;
+          field.appendChild(s);
+        }
+      })();
+
+      /* ─── GENERATE HERO SPARKLES ──────────────────────────────── */
+      (function generateSparkles() {
+        const container = document.getElementById("heroSparkles");
+        const icons = ["✦", "✧", "⋆", "✩", "·"];
+        for (let i = 0; i < 14; i++) {
+          const sp = document.createElement("span");
+          sp.className = "sparkle";
+          sp.textContent = icons[Math.floor(Math.random() * icons.length)];
+          sp.style.cssText = `
+        top:${Math.random() * 90}%; left:${Math.random() * 95}%;
+        --fdur:${(Math.random() * 4 + 4).toFixed(1)}s;
+        --fdelay:-${(Math.random() * 5).toFixed(1)}s;
+        font-size:${(Math.random() * 1.2 + 0.7).toFixed(1)}rem;
+        opacity:0.5;
+        color: ${["#b8a4e8", "#f4a7c3", "#ffd700", "#e8dff5"][Math.floor(Math.random() * 4)]};
+      `;
+          container.appendChild(sp);
+        }
+      })();
+
+      /* ─── BUILD STAR CARDS ──────────────────────────────────────── */
+      const grid = document.getElementById("starsGrid");
+      stars.forEach((star, i) => {
+        const card = document.createElement("div");
+        card.className = "star-card";
+        card.setAttribute("role", "button");
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("aria-label", `Open ${star.label}`);
+        card.style.setProperty(
+          "--sp-dur",
+          `${(Math.random() * 1.5 + 2).toFixed(1)}s`,
+        );
+        card.style.setProperty(
+          "--sp-delay",
+          `-${(Math.random() * 2).toFixed(1)}s`,
+        );
+        card.innerHTML = `
+      <span class="star-icon">${star.emoji}</span>
+      <span class="star-label">${star.label}</span>
+    `;
+        card.addEventListener("click", () => openModal(i));
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") openModal(i);
+        });
+        grid.appendChild(card);
+      });
+
+      /* ─── MODAL LOGIC ────────────────────────────────────────────── */
+      function openModal(index) {
+        const star = stars[index];
+        document.getElementById("modalNum").textContent = star.label;
+        document.getElementById("modalEmoji").textContent = star.emoji;
+        document.getElementById("modalMessage").textContent = star.message;
+        document.getElementById("modalHint").textContent = star.hint;
+        const overlay = document.getElementById("modalOverlay");
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+
+        // mini confetti burst on each star
+        confetti({
+          particleCount: 38,
+          spread: 55,
+          origin: { y: 0.5 },
+          colors: ["#b8a4e8", "#f4a7c3", "#ffd700", "#ffffff"],
+        });
+      }
+
+      function closeModal(event) {
+        if (
+          event &&
+          event.target !== document.getElementById("modalOverlay") &&
+          !event.target.classList.contains("modal-close")
+        )
+          return;
+        document.getElementById("modalOverlay").classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeModal({ target: document.getElementById("modalOverlay") });
+        }
+      });
+
+      /* ─── FINALE ─────────────────────────────────────────────────── */
+      let finaleTriggered = false;
+
+      function triggerFinale() {
+        if (finaleTriggered) return;
+        finaleTriggered = true;
+
+        // Big confetti explosion
+        const colors = [
+          "#b8a4e8",
+          "#f4a7c3",
+          "#ffd700",
+          "#ffffff",
+          "#f06292",
+          "#6b4fa0",
+        ];
+
+        function burst(x, y, count) {
+          confetti({
+            particleCount: count,
+            spread: 70,
+            origin: { x, y },
+            colors,
+            zIndex: 9999,
+          });
+        }
+
+        burst(0.5, 0.5, 90);
+        setTimeout(() => {
+          burst(0.2, 0.6, 60);
+          burst(0.8, 0.6, 60);
+        }, 200);
+        setTimeout(() => {
+          burst(0.1, 0.3, 50);
+          burst(0.9, 0.3, 50);
+          burst(0.5, 0.4, 70);
+        }, 450);
+        setTimeout(() => {
+          confetti({
+            particleCount: 120,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors,
+          });
+          confetti({
+            particleCount: 120,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors,
+          });
+        }, 700);
+        setTimeout(() => {
+          burst(0.5, 0.3, 80);
+        }, 1000);
+
+        // Show cake
+        const cakeWrap = document.getElementById("cake-wrap");
+        cakeWrap.style.display = "flex";
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => cakeWrap.classList.add("visible")),
+        );
+
+        // Show letter
+        const letter = document.getElementById("birthday-letter");
+        letter.style.display = "block";
+        setTimeout(() => letter.classList.add("visible"), 600);
+
+        // Scroll to letter
+        setTimeout(
+          () => letter.scrollIntoView({ behavior: "smooth", block: "center" }),
+          1200,
+        );
+      }
+    </script>
+  </body>
+</html>

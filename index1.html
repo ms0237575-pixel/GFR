@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy 20th, Rawan! 🏮</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* === CSS Variables & Reset === */
+      :root {
+        --night-sky: #081021;
+        --ocean-blue: #112240;
+        --lantern-glow: #ffb703;
+        --lantern-core: #ffea00;
+        --paper: #fcfaf2;
+        --text-dark: #2c3e50;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: linear-gradient(
+          to bottom,
+          var(--night-sky) 0%,
+          var(--ocean-blue) 100%
+        );
+        color: #fff;
+        font-family: "Playfair Display", serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* === Background & Scenery === */
+      .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .sea {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 25vh;
+        background: linear-gradient(to bottom, #0a192f 0%, #020c1b 100%);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 1;
+        box-shadow: 0 -10px 50px rgba(10, 25, 47, 0.8);
+      }
+
+      /* === Hero Section === */
+      .hero {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding-top: 12vh;
+        text-shadow: 0 0 20px rgba(255, 183, 3, 0.5);
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+      }
+
+      .hero p {
+        font-family: "Cairo", sans-serif;
+        font-size: 1.2rem;
+        color: #d1d8e0;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* === Interactive Lanterns === */
+      .lantern-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 85vh;
+        z-index: 5;
+        pointer-events: none; /* Let clicks pass through empty space */
+      }
+
+      .lantern {
+        position: absolute;
+        width: 30px;
+        height: 45px;
+        background: linear-gradient(to bottom, #ffeebb, #ffb703);
+        border-radius: 8px 8px 3px 3px;
+        box-shadow:
+          0 0 15px var(--lantern-glow),
+          inset 0 0 10px var(--lantern-core);
+        cursor: pointer;
+        pointer-events: auto;
+        transition: transform 0.3s ease;
+        animation: float-bob 4s ease-in-out infinite alternate;
+      }
+
+      .lantern::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 15px;
+        height: 5px;
+        background: #cc5500;
+        border-radius: 0 0 5px 5px;
+      }
+
+      .lantern:hover {
+        transform: scale(1.2);
+        box-shadow:
+          0 0 30px var(--lantern-core),
+          inset 0 0 20px #fff;
+      }
+
+      @keyframes float-bob {
+        0% {
+          transform: translateY(0px) rotate(-3deg);
+        }
+        100% {
+          transform: translateY(-20px) rotate(3deg);
+        }
+      }
+
+      /* === Modal (Message Paper) === */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 100;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        backdrop-filter: blur(4px);
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal-content {
+        background: var(--paper);
+        color: var(--text-dark);
+        padding: 40px;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 80%;
+        width: 400px;
+        box-shadow: 0 0 40px rgba(255, 183, 3, 0.4);
+        font-family: "Cairo", sans-serif;
+        font-size: 1.3rem;
+        position: relative;
+        transform: translateY(20px);
+        transition: transform 0.4s ease;
+      }
+
+      .modal-overlay.active .modal-content {
+        transform: translateY(0);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #888;
+        transition: color 0.2s;
+      }
+
+      .close-btn:hover {
+        color: #d35400;
+      }
+
+      /* === Grand Finale Section === */
+      .finale-wrapper {
+        position: absolute;
+        bottom: 5vh;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 20;
+      }
+
+      .finale-btn {
+        background: transparent;
+        color: var(--lantern-core);
+        border: 2px solid var(--lantern-glow);
+        padding: 12px 30px;
+        font-size: 1.2rem;
+        font-family: "Playfair Display", serif;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px rgba(255, 183, 3, 0.3);
+      }
+
+      .finale-btn:hover {
+        background: var(--lantern-glow);
+        color: var(--night-sky);
+        box-shadow: 0 0 30px rgba(255, 183, 3, 0.8);
+        transform: translateY(-3px);
+      }
+
+      /* === Cake & Letter Reveal === */
+      .reveal-section {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(8, 16, 33, 0.95);
+        z-index: 200;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+
+      .cake {
+        font-size: 6rem;
+        margin-bottom: 20px;
+        animation: bounce 2s infinite;
+      }
+
+      .letter {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 183, 3, 0.3);
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 600px;
+        font-family: "Cairo", sans-serif;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: #fdfdfd;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-20px);
+        }
+        60% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* Confetti Animation */
+      .particle {
+        position: fixed;
+        top: -10vh;
+        z-index: 9999;
+        pointer-events: none;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 600px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .lantern {
+          transform: scale(0.8);
+        }
+        .letter {
+          font-size: 1rem;
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stars" id="stars"></div>
+    <div class="sea"></div>
+
+    <div class="hero">
+      <h1>Happy 20th, Rawan</h1>
+      <p>
+        Welcome to your twenties, little sister. Click the lanterns floating on
+        the midnight breeze.
+      </p>
+    </div>
+
+    <div class="lantern-container" id="lanterns"></div>
+
+    <div class="modal-overlay" id="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <p id="modal-text"></p>
+      </div>
+    </div>
+
+    <div class="finale-wrapper">
+      <button class="finale-btn" onclick="triggerFinale()">
+        Release the Big Lantern 🏮
+      </button>
+    </div>
+
+    <div class="reveal-section" id="revealScreen">
+      <div class="cake">🎂✨</div>
+      <div class="letter">
+        <h3>To the little sister I never asked for,</h3>
+        <br />
+        Rawan, watching you grow into the incredible 20-year-old you are today
+        has been amazing. You might not be my biological sister, but you mean
+        the world to me just the same. <br /><br />
+        I'm so proud of the person you're becoming. Keep that beautiful spirit
+        of yours, stay strong, and remember I'm always right here cheering you
+        on (and ready to mock you when you mess up). <br /><br />
+        Happy 20th Birthday, brat! 💛
+      </div>
+    </div>
+
+    <script>
+      // Simple star generator for the background
+      function createStars() {
+        const starsContainer = document.getElementById("stars");
+        let shadowString = "";
+        for (let i = 0; i < 150; i++) {
+          let x = Math.random() * window.innerWidth;
+          let y = Math.random() * window.innerHeight;
+          shadowString += `${x}px ${y}px #FFF, `;
+        }
+        shadowString = shadowString.slice(0, -2);
+
+        const starLayer = document.createElement("div");
+        starLayer.style.width = "2px";
+        starLayer.style.height = "2px";
+        starLayer.style.background = "transparent";
+        starLayer.style.boxShadow = shadowString;
+        starsContainer.appendChild(starLayer);
+      }
+      createStars();
+
+      // The 20 Messages (10 English, 10 Egyptian Arabic)
+      const messages = [
+        // English (Sibling/Protective/Teasing tone)
+        "Welcome to the 20s club! Don't worry, I'll still protect you from the world.",
+        "You're 20 now! Time to start acting like an adult. (Just kidding, please don't).",
+        "To the most annoying, yet most lovable little sister I never asked for.",
+        "May your twenties be filled with joy, success, and less stealing of my hoodies.",
+        "I promise to always have your back, even when you're being ridiculous.",
+        "Happy birthday kiddo! Let's make this decade the best one yet.",
+        "20 years of you being a menace to society. Here's to 20 more!",
+        "No matter how old you get, you'll always be my little sister.",
+        "Wishing you all the happiness in the world today. You deserve it, brat.",
+        "Keep shining brightly! Just not brighter than me, okay?",
+        // Egyptian Arabic
+        "كبرتي وبقيتي 20 سنة، بس هتفضلي الطفلة اللي بصدع منها.",
+        "عشرين سنة وإنتي مطلعة عيني، بس مقدرش استغنى عنك والله.",
+        "كل سنة وانتي طيبة يا لمضة، يارب تحققي كل اللي نفسك فيه.",
+        "مهما كبرتي هتفضلي أختي الصغيرة اللي لازم أحميها وأغلس عليها.",
+        "عشرينيات سعيدة يا ستي، شدي حيلك بقى في اللي جاي.",
+        "كل سنة وانتي غلسة وزنانة بس سكر.",
+        "يارب أيامك كلها تبقى حلوة زيك، أو نص حلاوتك عشان متتغريش.",
+        "أنا دايماً في ضهرك، حتى لو إنتي الغلطانة (وهنصلح الغلط بعدين).",
+        "أحلى 20 سنة، بس خفي طلبات شوية بقى.",
+        "ربنا يفرح قلبك دايماً يا أجمل أخت في الدنيا.",
+      ];
+
+      // Shuffle messages so they are random
+      messages.sort(() => Math.random() - 0.5);
+
+      // Generate 20 Lanterns
+      const lanternContainer = document.getElementById("lanterns");
+
+      for (let i = 0; i < 20; i++) {
+        let lantern = document.createElement("div");
+        lantern.classList.add("lantern");
+
+        // Random positioning across the screen (avoiding edges and hero text)
+        let posX = 5 + Math.random() * 90; // 5vw to 95vw
+        let posY = 20 + Math.random() * 60; // 20vh to 80vh
+
+        lantern.style.left = `${posX}vw`;
+        lantern.style.top = `${posY}vh`;
+
+        // Stagger animation timing so they float organically
+        lantern.style.animationDelay = `${Math.random() * 4}s`;
+
+        // Add click event for the modal
+        lantern.onclick = function () {
+          openModal(messages[i]);
+          // Dim the lantern to show it was read
+          this.style.opacity = "0.4";
+        };
+
+        lanternContainer.appendChild(lantern);
+      }
+
+      // Modal Logic
+      const modal = document.getElementById("modal");
+      const modalText = document.getElementById("modal-text");
+
+      function openModal(text) {
+        modalText.innerText = text;
+        modal.classList.add("active");
+      }
+
+      function closeModal() {
+        modal.classList.remove("active");
+      }
+
+      // Close modal when clicking outside the paper
+      window.onclick = function (event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      };
+
+      // Grand Finale Logic
+      function triggerFinale() {
+        // Fire confetti
+        const emojis = ["✨", "🎉", "🏮", "💛", "🎊"];
+        for (let i = 0; i < 70; i++) {
+          let particle = document.createElement("div");
+          particle.classList.add("particle");
+          particle.innerText =
+            emojis[Math.floor(Math.random() * emojis.length)];
+          particle.style.left = `${Math.random() * 100}vw`;
+          particle.style.fontSize = `${Math.random() * 20 + 15}px`;
+          particle.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+          document.body.appendChild(particle);
+        }
+
+        // Show the Reveal Screen
+        const revealScreen = document.getElementById("revealScreen");
+        revealScreen.style.display = "flex";
+
+        // Small delay to allow display:flex to apply before changing opacity for CSS transition
+        setTimeout(() => {
+          revealScreen.style.opacity = "1";
+        }, 50);
+      }
+    </script>
+  </body>
+</html>
